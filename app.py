@@ -1,18 +1,10 @@
 import PySimpleGUI as sg
 import pytube
 
-
 def progress_check(stream, chunk, bytes_remaining):
     window['_download_progress_bar'].update(100 - (bytes_remaining / stream.filesize * 100))
-
 def complete_check(stream, file_path):
     window['_download_progress_bar'].update(0)
-
-
-starter_layout = [
-    [sg.Input(key="_link_input")],
-    [sg.Button("Submit", key="_link_submit")],
-]
 
 # fmt: off
 info_tab = [
@@ -56,10 +48,13 @@ layout = [[sg.TabGroup(
         sg.Tab('Download', download_tab),
     ]]
 )]]
+link_window = [
+    [sg.Input(key="_link_input")],
+    [sg.Button("Submit", key="_link_submit")],
+]
 # fmt: on
 
-
-window = sg.Window("Youtube App", starter_layout)
+window = sg.Window("Youtube App", link_window)
 
 while True:
     event, values = window.read()
@@ -124,4 +119,5 @@ while True:
             .replace(":"," ")+"_"+"audio.mp3"
         )
     # fmt: on
+    
 window.close()
